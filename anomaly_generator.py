@@ -24,7 +24,7 @@ if st.sidebar.button("Generate dataset"):
     start = feature_range[0]
     end = feature_range[1]
     np.random.seed(123)
-    time_series = np.random.uniform(start, end+0.1, num_samples)
+    time_series = np.random.uniform(start, end, num_samples)
     # now randomly select integers in the range of n
     np.random.seed(123)
     anomalous_indices = np.random.choice(num_samples, size=round(0.1*num_samples), replace=False) # np.random.randint(0, num_samples, round(0.1*num_samples))
