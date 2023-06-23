@@ -12,8 +12,8 @@ st.set_page_config(page_title="Anomaly Dataset Generator", page_icon=":bar_chart
 
 # Define user input fields
 st.sidebar.title("Anomaly Dataset Generator")
-name = st.sidebar.text_input('Enter measurement attribute', 'Gauge')
-num_samples = st.sidebar.number_input("Number of samples", min_value=1, max_value=10000, value=1000, step=1)
+name = st.sidebar.text_input('Enter measurement attribute', value='Gauge', placeholder='unnamed')
+num_samples = st.sidebar.number_input("Number of samples", min_value=1, max_value=10000, value=100, step=1)
 num_features = 1
 # num_features = st.sidebar.number_input("Number of features", min_value=1, max_value=10, value=2, step=1)
 contamination = st.sidebar.slider("Percentage of anomalies", min_value=0.0, max_value=100.0, value=(10.0), step=1.0)
@@ -47,5 +47,7 @@ if st.sidebar.button("Generate dataset"):
 
     # Convert the dataframe to CSV and create a download button
     csv = convert_df(df)
-    st.download_button(label='Download CSV', data=csv, file_name=f'{name}.csv', mime='text/csv')
+    if len(name) == 0:
+        name = 'unnamed'
+    st.download_button(label='Download dataset', data=csv, file_name=f'data_{name}.csv', mime='text/csv')
 
