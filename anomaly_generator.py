@@ -27,12 +27,16 @@ if st.sidebar.button("Generate dataset"):
     time_series = np.random.uniform(start, end, num_samples)
     # now randomly select integers in the range of n
     np.random.seed(123)
-    anomalous_indices = np.random.choice(num_samples, size=round(0.1*num_samples), replace=False) # np.random.randint(0, num_samples, round(0.1*num_samples))
-    outliers = np.concatenate((np.random.uniform(start-1,start , round(0.1*num_samples/2)), 
-                        np.random.uniform(end+0.2,end+1, round(0.1*num_samples/2))))
-    
+    anomalous_size = round(contamination*num_samples/100.0)
+    anomalous_size_upper = anomalous_size//2
+    anomalous_size_lower = anomalous_size - anomalous_size_upper
+    anomalous_indices = np.random.choice(num_samples, size = anomalous_size, replace=False) 
+    outliers = np.concatenate((np.random.uniform(start-1,start, anomalous_size_upper), 
+                        np.random.uniform(end+0.1,end+1, anomalous_size_lower)))
+    outliers_categorical = np.zeros_like(time_series)
+    outliers_categorical[anomalous_indices] = 1
     time_series[anomalous_indices] = outliers
-    df = pd.DataFrame({'values':list(time_series.reshape(-1,))})
+    df = pd.DataFrame({'values':list(time_series.reshape(-1,)),'anomaly':outliers_categorical})
     fig = go.Figure()
     fig.add_trace(go.Scatter(y=df['values'],x=df.index, mode='lines', name='Inliers'))
     fig.add_trace(go.Scatter(y=outliers, x=anomalous_indices, mode='markers', name='Outliers',marker=dict(color='red')))
@@ -49,5 +53,5 @@ if st.sidebar.button("Generate dataset"):
     csv = convert_df(df)
     if len(name) == 0:
         name = 'unnamed'
-    st.download_button(label='Download dataset', data=csv, file_name=f'data_{name}.csv', mime='text/csv')
+    st.download_button(label='Download dataset', data=csv, file_name=f'{name}.csv', mime='text/csv')
 
