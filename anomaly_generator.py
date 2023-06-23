@@ -17,7 +17,7 @@ num_samples = st.sidebar.number_input("Number of samples", min_value=1, max_valu
 num_features = 1
 # num_features = st.sidebar.number_input("Number of features", min_value=1, max_value=10, value=2, step=1)
 contamination = st.sidebar.slider("Percentage of anomalies", min_value=0.0, max_value=100.0, value=(10.0), step=1.0)
-feature_range = st.sidebar.slider("Nominal value", min_value=0.0, max_value=10.0, value=(4.0,6.0), step=0.1)
+feature_range = st.sidebar.slider("Threshold interval", min_value=0.0, max_value=10.0, value=(4.0,6.0), step=0.1)
 
 # Generate anomaly dataset
 if st.sidebar.button("Generate dataset"):
