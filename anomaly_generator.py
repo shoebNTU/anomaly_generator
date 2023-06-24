@@ -9,9 +9,17 @@ def convert_df(df):
 
 # Set page title and favicon
 st.set_page_config(page_title="Anomaly Dataset Generator", page_icon=":bar_chart:", layout="wide")
+st.title("Anomaly Dataset Generator")
+st.info(""" This app enables you to create custom dummy data with following controls - 
+- Measurement attribute name
+- Number of samples
+- Percentage of anomalies
+- Threshold interval (acceptable range of values)  \n
+Finally, you can visualize and download the generated dataset in the form of a csv file. 
+""")
 
 # Define user input fields
-st.sidebar.title("Anomaly Dataset Generator")
+
 name = st.sidebar.text_input('Enter measurement attribute', value='Gauge', placeholder='unnamed')
 num_samples = st.sidebar.number_input("Number of samples", min_value=1, max_value=10000, value=100, step=1)
 num_features = 1
