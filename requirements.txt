@@ -2,4 +2,4 @@ numpy==1.20.1
 pandas==1.2.4
 plotly==5.15.0
 streamlit==1.22.0  
-pysketcher==0.0.10
+# pysketcher==0.0.10
