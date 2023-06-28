@@ -6,7 +6,7 @@ from pysketcher.backend.matplotlib import MatplotlibBackend
 # Set page title and favicon
 st.set_page_config(page_title="Sketch Generator", page_icon=":bar_chart:")
 st.title("Parametric sketch generator")
-st.sidebar.info(""" This app helps you sketch gauges of different lengths.""")
+st.info(""" This app helps you sketch gauges of different lengths. Please set length of the gauge using slider in the sidebar and click on **Generate Sketch**""")
 length = st.sidebar.slider("Gauge Length", min_value=12.0, max_value=15.0, value=(14.0), step=0.1)
 st.set_option('deprecation.showPyplotGlobalUse', False)
 
