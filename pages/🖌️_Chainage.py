@@ -10,54 +10,54 @@ st.info(""" This app presents a demo of a chainage comprising of 200 representat
 st.set_option('deprecation.showPyplotGlobalUse', False)
 
 # Define the x and y coordinates of the railway track
-y = np.arange(0,200)
-x1 = -7*np.ones_like(y)
-x2 = 7*np.ones_like(y)
-x_offset = np.sin(np.linspace(0,np.radians(360),len(y)))/2 
+x = np.arange(0,200)
+y1 = -7*np.ones_like(x)
+y2 = 7*np.ones_like(x)
+y_offset = np.sin(np.linspace(0,np.radians(360),len(x)))/2 
 
 # Create a scatter trace for the railway track
 trace1 = go.Scatter(
-    x=x1,
-    y=y,
+    x=x,
+    y=y1,
     mode='lines',
-    line=dict(color='black', width=4, dash='dot'), name = 'label1'
+    line=dict(color='black', width=4, dash='dot'), name = 'baseline'
 )
 
 trace2 = go.Scatter(
-    x=x2,
-    y=y,
-    mode='lines', name='label1',
+    x=x,
+    y=y2,
+    mode='lines', name='baseline',
     line=dict(color='black', width=4, dash='dot'), showlegend = False
 )
 
 trace3 = go.Scatter(
-    x=x1+x_offset,
-    y=y,
+    x=x,
+    y=y1+y_offset,
     mode='lines',
-    line=dict(color='black', width=4), name = 'label2',
-    customdata=-x_offset,
+    line=dict(color='black', width=4), name = 'measured',
+    customdata=-y_offset,
     hovertemplate='gauge: %{customdata:.2f} mm'
 )
 
 trace4 = go.Scatter(
-    x=x2-x_offset,
-    y=y,
-    mode='lines', name='label2',
+    x=x,
+    y=y2-y_offset,
+    mode='lines', name='measured',
     line=dict(color='black', width=4), showlegend = False,
-    customdata=-x_offset,
+    customdata=-y_offset,
     hovertemplate='gauge: %{customdata:.2f} mm'
 )
 
 # Create a layout for the plot
 layout = go.Layout(
     xaxis=dict(
-        range=[-10, 10],
+        # range=[-10, 10],
         showgrid=False,
         zeroline=False,
         showticklabels=False
     ),
     yaxis=dict(
-        # range=[-1, 10],
+        range=[-10, 10],
         showgrid=False,
         zeroline=False,
         showticklabels=False
@@ -70,15 +70,15 @@ layout = go.Layout(
 
 # Create a figure object and add the trace to it
 fig = go.Figure(data=[trace1,trace2,trace3,trace4], layout=layout)
-fig.update_traces(hoverinfo="skip", hovertemplate=None, selector=dict(name='label1'))
+fig.update_traces(hoverinfo="skip", hovertemplate=None, selector=dict(name='baseline'))
 # fig.update_traces(hoverinfo="skip", hovertemplate=None, selector=dict(name='trace2'))
 fig.update_layout(plot_bgcolor="white", paper_bgcolor="white")
 
 fig.add_annotation(
-x=-7,  # arrows' head
-y=100,  # arrows' head
-ax=7,  # arrows' tail
-ay=100,  # arrows' tail
+y=-7,  # arrows' head
+x=100,  # arrows' head
+ay=7,  # arrows' tail
+ax=100,  # arrows' tail
 xref='x',
 yref='y',
 axref='x',
@@ -92,10 +92,10 @@ arrowcolor='blue'
 )
 
 fig.add_annotation(
-x=7,  # arrows' head
-y=100,  # arrows' head
-ax=-7,  # arrows' tail
-ay=100,  # arrows' tail
+y=7,  # arrows' head
+x=100,  # arrows' head
+ay=-7,  # arrows' tail
+ax=100,  # arrows' tail
 xref='x',
 yref='y',
 axref='x',
@@ -109,8 +109,8 @@ arrowcolor='blue'
 )
 
 fig.add_annotation(
-x=0,  # arrows' head
-y=110,  # arrows' head
+y=0,  # arrows' head
+x=110,  # arrows' head
 ax=-7,  # arrows' tail
 ay=130,  # arrows' tail
 xref='x',
@@ -119,7 +119,8 @@ axref='x',
 ayref='y',
 text='1435 mm (not to scale)',  # if you want only the arrow
 showarrow=False,
-arrowcolor='blue',font = dict(family="Arial", size=18)
+arrowcolor='blue',font = dict(family="Arial", size=18),
+textangle=-90
 )
 # fig.update_annotations(font=dict(family="Arial", size=18, color="red"))
 
