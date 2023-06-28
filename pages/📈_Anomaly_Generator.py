@@ -8,7 +8,7 @@ def convert_df(df):
     return df.to_csv().encode('utf-8')
 
 # Set page title and favicon
-st.set_page_config(page_title="Anomaly Dataset Generator", page_icon=":bar_chart:", layout="wide")
+st.set_page_config(page_title="Anomaly Dataset Generator", page_icon=":chart_with_upwards_trend:", layout="wide")
 st.title("Anomaly Dataset Generator")
 st.info(""" This app enables you to create custom dummy data with following controls - 
 - Measurement attribute name
