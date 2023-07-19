@@ -34,7 +34,7 @@ trace3 = go.Scatter(
     x=x,
     y=y1+y_offset,
     mode='lines',
-    line=dict(color='black', width=4), name = 'measured',
+    line=dict(color='blue', width=2), name = 'measured',
     customdata=-y_offset,
     hovertemplate='gauge: %{customdata:.2f} mm'
 )
@@ -43,7 +43,7 @@ trace4 = go.Scatter(
     x=x,
     y=y2-y_offset,
     mode='lines', name='measured',
-    line=dict(color='black', width=4), showlegend = False,
+    line=dict(color='blue', width=2), showlegend = False,
     customdata=-y_offset,
     hovertemplate='gauge: %{customdata:.2f} mm'
 )
