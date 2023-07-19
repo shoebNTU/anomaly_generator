@@ -13,7 +13,7 @@ st.info(""" This app presents sample readings and forecast readings. Forecast re
 st.set_option('deprecation.showPyplotGlobalUse', False)
 
 no_of_years = st.sidebar.number_input("Number of years to forecast", min_value=1, max_value=30, value=5, step=1)
-degradation_factor  = st.sidebar.slider("Degradation Factor", min_value=0.0, max_value=1.0, value=0.1, step=0.01)
+degradation_factor  = st.sidebar.slider("Degradation Factor (in mm/year)", min_value=0.0, max_value=1.0, value=0.1, step=0.01)
 
 # reading gauge file
 gauge = pd.read_csv('gauge.csv',usecols=['gauge'])
