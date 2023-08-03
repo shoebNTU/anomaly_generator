@@ -3,6 +3,10 @@ import numpy as np
 import plotly.graph_objects as go
 import pandas as pd
 
+@st.cache_data
+def convert_df(df):
+    return df.to_csv().encode('utf-8')
+
 # Set page title and favicon
 st.set_page_config(page_title="Chainage Readings Forecast", page_icon=":tram:")
 st.title("Chainage Readings Forecast")
@@ -103,3 +107,11 @@ fig.update_traces(hoverinfo="skip", hovertemplate=None, selector=dict(name='base
 fig.update_layout(plot_bgcolor="white", paper_bgcolor="white")
 
 st.plotly_chart(fig)
+
+df = pd.DataFrame({'measured_values':gauge['gauge'].values, 'forecast_values':y_offset_degradation*2})
+df['years_to_forecast'] = no_of_years
+df['degradation_factor'] = degradation_factor
+
+# Convert the dataframe to CSV and create a download button
+csv = convert_df(df)
+st.download_button(label='Download dataset', data=csv, file_name=f'forecast_dataset_{no_of_years}_yrs_deg_factor_{degradation_factor}.csv', mime='text/csv')
